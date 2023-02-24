@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ASP.Net.Models\ASP.Net.Models.csproj" />
+  </ItemGroup>
+
 </Project>
