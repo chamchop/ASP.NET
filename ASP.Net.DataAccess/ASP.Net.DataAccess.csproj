@@ -11,7 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ASP.Net\ASP.Net.csproj" />
+    <ProjectReference Include="..\ASP.Net.Models\ASP.Net.Models.csproj" />
+    <ProjectReference Include="..\ASP.Net.Controller\ASP.Net.Controller.csproj"  />
   </ItemGroup>
+
+
 
 </Project>
