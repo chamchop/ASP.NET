@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASP.Net.Models\ASP.Net.Models.csproj" />
+    <ProjectReference Include="..\ASP.Net.Utility\ASP.Net.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
