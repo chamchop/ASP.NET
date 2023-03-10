@@ -7,6 +7,7 @@ using NuGet.Packaging.Signing;
 
 namespace ASP.Net.Areas.Admin.Controllers
 {
+        [Area("Admin")]
     public class ProductController : Controller
     {
 

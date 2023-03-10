@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace ASP.Net.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
