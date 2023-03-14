@@ -3,42 +3,50 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ASP.Net</title>
+    <title>@ViewData["Title"] - Webstore</title>
     <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="~/ASP.Net.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASP.Net</a>
+                <a class="navbar-brand" href="#">Website</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="navbarColour02">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Management</a>
-                                <div class="dropdown-menu">
+                            <div class="dropdown-menu">
                                 <a class="dropdown-item text-light" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                                 <a class="dropdown-item text-light" asp-area="Admin" asp-controller="CoverType" asp-action="Index">Cover Type</a>
                                 <a class="dropdown-item text-light" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                <a class="dropdown-item text-light" asp-area="Customer" asp-controller="Cart" asp-action="Index">Cart</a>
 
-                                    <div class="dropdwon-divider"></div>
-
-                                <a class="dropdown-item text-light" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
-
+                                <div class="dropdwon-divider"></div>
+                                    <a class="dropdown-item text-light" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>                                
                                 </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                <i class="bi bi-basket"></i>
+                            </a>
+                        </li>
                     </ul>
+
                     <partial name="_LoginPartial" />
                 </div>
             </div>

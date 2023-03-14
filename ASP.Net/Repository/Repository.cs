@@ -15,7 +15,7 @@ namespace ASP.Net.DataAccess.Repository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            /*_db.Products.Include(u => u.Category).Include(u => u.CoverType);*/
+            /*_db.ShoppingCarts.Include(u => u.Product).Include(u => u.CoverType);*/
             this.dbSet = _db.Set<T>();
         }
 
@@ -25,9 +25,12 @@ namespace ASP.Net.DataAccess.Repository
         }
 
         // include property "Category,CoverType"
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if (filter != null) {
+            query = query.Where(filter);
+            }
             if (includeProperties != null)
             {
                 foreach(var property in includeProperties.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries))
