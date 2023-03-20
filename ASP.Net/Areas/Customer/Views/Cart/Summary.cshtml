@@ -1,4 +1,6 @@
 ﻿@model ASP.Net.Models.ViewModels.ShoppingCartViewModel
+@using Microsoft.Extensions.Options
+@inject IOptions<ASP.Net.Utility.StripeSettings> Stripe
 
 <form method="post">
 	<br />
