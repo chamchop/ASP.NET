@@ -1,21 +1,24 @@
 ﻿using ASP.Net.Data;
+using ASP.Net.DataAccess.Repository.IRepository;
 using ASP.Net.Models;
+using ASP.Net.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASP.Net.Controllers
+namespace ASP.Net.Areas.Admin.Controllers
 {
+        [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _db.Categories;
+            IEnumerable<Category> objCategoryList = _unitOfWork.Category.GetAll();
             return View(objCategoryList);
         }
 
@@ -34,44 +37,49 @@ namespace ASP.Net.Controllers
             {
                 ModelState.AddModelError("name", "The DisplayOrder cannot match the Name.");
             }
-            if (ModelState.IsValid) {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");            
+                return RedirectToAction("Index");
             }
             return View(obj);
         }
 
         public IActionResult Edit(int? id)
         {
-            if (id == null || id == 0) 
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var categoryFromDb = _db.Categories.Find(id);
+            /*            var categoryFromDb = _db.Categories.Find(id);*/
 
-            /*            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
-            */
+            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+
             /*            var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);*/
 
-            if (categoryFromDb == null)
+            if (categoryFromDbFirst == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+            return View(categoryFromDbFirst);
         }
 
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("name", "The DisplayOrder cannot match the Name.");
             }
-            if (ModelState.IsValid) {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category edited successfully";
                 return RedirectToAction("Index");
             }
@@ -79,41 +87,41 @@ namespace ASP.Net.Controllers
         }
 
         public IActionResult Delete(int? id)
-            {   
-            if (id == null || id == 0) 
+        {
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var categoryFromDb = _db.Categories.Find(id);
+            /*            var categoryFromDb = _db.Categories.Find(id);*/
 
-            /*            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
-            */
+            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+
             /*            var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);*/
 
-            if (categoryFromDb == null)
+            if (categoryFromDbFirst == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+            return View(categoryFromDbFirst);
         }
-        
+
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
 
-            var obj = _db.Categories.Find(id);
-            if (obj == null) 
-                { 
-                    return NotFound();
-                }                
+            var obj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
 
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
             TempData["error"] = "Category deleted successfully";
             return RedirectToAction("Index");
-        }   
+        }
     }
 }
